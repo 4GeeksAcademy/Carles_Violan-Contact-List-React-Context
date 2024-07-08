@@ -12,6 +12,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
+			],
+			contacts: [
+				{
+					"name": "string",
+					"phone": "string",
+					"email": "string",
+					"address": "string",
+					"id": 0
+				}
 			]
 		},
 		actions: {
@@ -23,6 +32,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
+			},
+			resetColor: (index) => {
+				getActions().changeColor(index, "white");
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -37,6 +49,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			getContactNames: () => {
+				const store = getStore();
+				const contactNames = store.contacts.map(contact => contact.name);
+				return contactNames;
+			},
+			logNames: () => {
+				const log = getActions().getContactNames();
+				console.log(log);
 			}
 		}
 	};
