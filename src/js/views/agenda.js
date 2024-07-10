@@ -8,20 +8,15 @@ import "../../styles/demo.css";
 export const Agenda = () => {
     const { store, actions } = useContext(Context);
     const contactos = store.agenda;
+    
+    // agenda: [],
     // contacts: [
     //     {
-    //         "name": "Antonio",
+    //         "name": "string",
     //         "phone": "string",
     //         "email": "string",
     //         "address": "string",
-    //         "id": 3
-    //     },
-    //     {
-    //         "name": "Antonio",
-    //         "phone": "string",
-    //         "email": "string",
-    //         "address": "string",
-    //         "id": 68
+    //         "id": 0
     //     }
     // ]
 
@@ -46,7 +41,7 @@ export const Agenda = () => {
             <Link to="/">
                 <button className="btn btn-primary">Back home</button>
             </Link>
-            <button className="btn btn-warning" onClick={() => actions.logNames()}>Log</button>
+            <button className="btn btn-warning" onClick={() => actions.getAgenda()}>Log</button>
         </div>
     );
 };

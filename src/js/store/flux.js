@@ -1,27 +1,42 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			"slug": "AJPadillo",
 			agenda: [],//Aqui guardo los datos del GET
 			contacts: [//Aqui almaceno los datos que quiero enviar con POST
 				{//OBTENGO ID DEL GET YA QUE ME LO HACE LA PROPIA API, PERO NO HAGO POST DE ID
-					"name": "antonio",
-					"phone": "1123",
-					"email": "sss@ff.com",
-					"address": "aaaa",
-					"id": 0
+					"name": "Antonio",
+					"phone": "555111222",
+					"email": "a@a.com",
+					"address": "Calle Falsa 123"
 				}
 			]
 		},
 		actions: {
+			crearAgenda: async () => {
+				try {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+					if (!response.ok) {
+						throw new Error("Error al crear la agenda");
+					}
+				} catch (error) {
+					console.log(error);
+				}
+			},
 			getAgenda: async () => {
 				try {
 					const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo")
 					if (response.status != 200) {
 						console.log(response.status)
 					}
-					const data = await response.json()
-					setStore({ agenda: data });
+					const data = await response.json();
+					console.log(data);
+					setStore({ agenda: [data] });
+					console.log(setStore());
 				} catch (error) {
 					console.log(error);
 				}
