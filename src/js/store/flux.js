@@ -13,13 +13,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+			//Simulacion del fetch GET contacts
 			contacts: [
 				{
-					"name": "string",
-					"phone": "string",
+					"name": "Antonio",
+					"phone": "555555",
 					"email": "string",
 					"address": "string",
-					"id": 0
+					"id": 3
+				},
+				{
+					"name": "Antonio 2",
+					"phone": "33333333",
+					"email": "string",
+					"address": "string",
+					"id": 68
+				},
+				{
+					"name": "Antonio 3",
+					"phone": "22222222",
+					"email": "string",
+					"address": "string",
+					"id": 11
 				}
 			]
 		},
@@ -50,6 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
+			//Boton de Log de prueba
 			getContactNames: () => {
 				const store = getStore();
 				const contactNames = store.contacts.map(contact => contact.name);
@@ -59,6 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const log = getActions().getContactNames();
 				console.log(log);
 			}
+			//Fin de boton de prueba
 		}
 	};
 };
