@@ -7,7 +7,7 @@ import "../../styles/demo.css";
 
 export const Agenda = () => {
     const { store, actions } = useContext(Context);
-    const contactos = store.contacts;
+    const contactos = store.agenda;
     // contacts: [
     //     {
     //         "name": "Antonio",
