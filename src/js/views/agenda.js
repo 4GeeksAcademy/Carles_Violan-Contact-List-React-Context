@@ -19,7 +19,7 @@ export const Agenda = () => {
     //         "id": 0
     //     }
     // ]
-
+console.log(store.agenda);
     return (
         <div className="container">
             <ul className="list-group">

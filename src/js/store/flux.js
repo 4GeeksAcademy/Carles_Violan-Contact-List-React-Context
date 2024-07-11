@@ -35,7 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					console.log(data);
-					setStore({ agenda: [data] });
+					setStore( {agenda: data.contacts} );
+
 					console.log(setStore());
 				} catch (error) {
 					console.log(error);
