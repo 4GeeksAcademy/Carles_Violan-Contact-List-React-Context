@@ -3,21 +3,17 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
-//NOS CAPTURE LO QUE ESTAMOS ESCRIBIENDO EN EL INPUT (CON UN ONCHANGE)
-const addContact = () => {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
-    const { actions } = useContext(Context)
-    const navigate = useNavigate();
+import "../../styles/demo.css";
 
-    const dataToSend = [{
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "address": address
-    }]
+//NOS CAPTURE LO QUE ESTAMOS ESCRIBIENDO EN EL INPUT (CON UN ONCHANGE)
+const EditForm = () => {
+    const { store, actions } = useContext(Context)
+    const [contact, setContact] = useState(store.contact);
+    const navigate = useNavigate();
+    const handleChange = (event) => {
+        setContact({ ...contact, [event.target.name]: event.target.value })
+    }
+
     //Formulario para añadir contactos
     return (
             <div className="container my-3">
@@ -28,7 +24,9 @@ const addContact = () => {
                         <input
                             type="text"
                             className="form-control"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => handleChange(e)}
+                            name="name"
+                            value={contact.name}
                         />
                     </div>
                     <div className="form-group">
@@ -36,7 +34,9 @@ const addContact = () => {
                         <input
                             type="tel"
                             className="form-control"
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={(e) => handleChange(e)}
+                            name="phone"
+                            value={contact.phone}
                         />
                     </div>
                     <div className="form-group">
@@ -44,7 +44,9 @@ const addContact = () => {
                         <input
                             type="email"
                             className="form-control"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => handleChange(e)}
+                            name="email"
+                            value={contact.email}
                         />
                     </div>
                     <div className="form-group">
@@ -52,11 +54,13 @@ const addContact = () => {
                         <input
                             type="text"
                             className="form-control"
-                            onChange={(e) => setAddress(e.target.value)}
+                            onChange={(e) => handleChange(e)}
+                            name="address"
+                            value={contact.address}
                         />
                     </div>
                     <div className="d-grid">
-                        <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.nuevoContacto(name, phone, email, address, navigate) }}>Enviar</button>
+                        <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.actualizarContacto(contact, navigate) }}>Enviar</button>
                     </div>
                     <Link to="/">
                         <span className="">o vuelve a los contactos</span>
@@ -66,4 +70,4 @@ const addContact = () => {
     )
 }
 
-export default addContact;
+export default EditForm;

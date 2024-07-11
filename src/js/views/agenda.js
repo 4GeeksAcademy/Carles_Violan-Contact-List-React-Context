@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
@@ -7,46 +8,38 @@ import "../../styles/demo.css";
 
 export const Agenda = () => {
     const { store, actions } = useContext(Context);
-    const contactos = store.contacts;
-    // contacts: [
-    //     {
-    //         "name": "Antonio",
-    //         "phone": "string",
-    //         "email": "string",
-    //         "address": "string",
-    //         "id": 3
-    //     },
-    //     {
-    //         "name": "Antonio",
-    //         "phone": "string",
-    //         "email": "string",
-    //         "address": "string",
-    //         "id": 68
-    //     }
-    // ]
-
+    const navigate = useNavigate();
     return (
         <div className="container">
+            <div className="d-flex justify-content-end mb-2">
+                <Link to="/addContact">
+                    <button className="btn btn-primary my-3">Añadir nuevo contacto</button>
+                </Link>
+            </div>
             <ul className="list-group">
-                {contactos.map((item) => {
-                    return (
-                        <>
-                            <ul>
-                                <li key={item.id}>
-                                    {item.name}
-                                    <br></br>
-                                    {item.phone}
-                                </li>
-                            </ul>
-                        </>
-                    );
-                })}
+                {store.agenda.map((item, index) =>
+                    <div className="container border px-0" key={index}>
+                        <div className="row my-2">
+                            <div className="col-md-3 d-flex justify-content-center align-items-center"> <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
+                                className="rounded-circle contactoImagen" /></div>
+                            <div className="col-md-6">
+                                <h3>{item.name}</h3>
+                                <p className="text-secondary mb-1">&#128205; {item.address}</p>
+                                <p className="text-secondary mb-1">&#128222; {item.phone}</p>
+                                <p className="text-secondary mb-1">&#9993;&#65039; {item.email}</p>
+                            </div>
+                            <div className="col-md-3 d-flex justify-content-between align-items-center">
+                                <span className="btn btn-sm fs-3" onClick={() => {
+                                    actions.saveContact(item)
+                                    navigate("/editForm")
+                                }}>&#9999;&#65039;</span>
+                                <span className="btn btn-sm fs-3 me-5" onClick={() => { actions.borrarContacto(item.id) }}>&#128465;&#65039;</span >
+                            </div>
+                        </div>
+                    </div>
+                )}
             </ul>
-            <br />
-            <Link to="/">
-                <button className="btn btn-primary">Back home</button>
-            </Link>
-            <button className="btn btn-warning" onClick={() => actions.logNames()}>Log</button>
         </div>
     );
 };
