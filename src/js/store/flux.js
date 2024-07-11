@@ -91,22 +91,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw error;
 				}
 			},
-			actualizarContacto: async (idContacto, updatedContactData) => {
-				console.log(idContacto);
+			actualizarContacto: async (contact, navigate) => {
 				try {
-					const uri = `https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`;
+					const uri = `https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${contact.id}`;
 					const options = {
 						method: "PUT",
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(updatedContactData),
+						body: JSON.stringify(contact),
 					};
 					const response = await fetch(uri, options);
-					if (response.status === 204) {
+					console.log(response);
+					if (response.status === 200) {
 						console.log("Contacto actualizado");
+						const data = await response.json();
+						getActions().loadSomeData();
+						navigate("/")
 					} else {
-						throw new Error(`Error al obtener la ID: ${idContacto}`);
+						throw new Error(`Error al obtener la ID: ${contact.id}`);
 					}
 				} catch (error) {
 					console.log(error);
