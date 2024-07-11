@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				"email": "",
 				"address": ""
 			}],//Aqui guardo los datos del GET
-			contact: {}
+			contact: {},
+			slug: "AJPadillo"
 		},
 		actions: {
 			loadSomeData: async () => {//ACTUALIZA LOS DATOS DE LA API (NOS TRAE LOS DATOS)
@@ -74,21 +75,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const updateContacts = store.agenda.filter(contact => contact.id != idContacto);
 					setStore({ contacts: updateContacts });
 					getActions().loadSomeData();
-				}
-			},
-			getContactById: async (idContacto) => {
-				try {
-					const uri = `https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`;
-					const response = await fetch(uri);
-					if (response.status === 200) {
-						const contactData = await response.json();
-						return contactData;
-					} else {
-						throw new Error(`Error al obtener la ID: ${idContacto}`);
-					}
-				} catch (error) {
-					console.log(error);
-					throw error;
 				}
 			},
 			actualizarContacto: async (contact, navigate) => {

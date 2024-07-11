@@ -1,19 +1,21 @@
 import React, { useState, useContext } from "react"
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+
+import "../../styles/demo.css";
 
 //NOS CAPTURE LO QUE ESTAMOS ESCRIBIENDO EN EL INPUT (CON UN ONCHANGE)
 const EditForm = () => {
-    const {store, actions} = useContext(Context)
+    const { store, actions } = useContext(Context)
     const [contact, setContact] = useState(store.contact);
     const navigate = useNavigate();
     const handleChange = (event) => {
-        setContact({...contact, [event.target.name]: event.target.value})
+        setContact({ ...contact, [event.target.name]: event.target.value })
     }
 
     //Formulario para añadir contactos
     return (
-        <>
             <div className="container">
                 <h2>Formulario de Contacto</h2>
                 <form>
@@ -57,10 +59,14 @@ const EditForm = () => {
                             value={contact.address}
                         />
                     </div>
-                    <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.actualizarContacto( contact, navigate) }}>Enviar</button>
+                    <div className="d-grid">
+                        <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.actualizarContacto(contact, navigate) }}>Enviar</button>
+                    </div>
+                    <Link to="/">
+                        <span className="">o vuelve a los contactos</span>
+                    </Link>
                 </form>
             </div>
-        </>
     )
 }
 
