@@ -1,17 +1,19 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			agenda: [],//Aqui guardo los datos del GET
-			contacts: [//Aqui almaceno los datos que quiero enviar con POST
-				{//OBTENGO ID DEL GET YA QUE ME LO HACE LA PROPIA API, PERO NO HAGO POST DE ID
-					"name": "Antonio",
-					"phone": "555111222",
-					"email": "a@a.com",
-					"address": "Calle Falsa 123"
-				}
-			]
+			agenda: [{
+				"name": "",
+				"phone": "",
+				"email": "",
+				"address": ""
+			}],//Aqui guardo los datos del GET
 		},
 		actions: {
+			loadSomeData: async () => {//ACTUALIZA LOS DATOS DE LA API (NOS TRAE LOS DATOS)
+				const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo/contacts", {method: "GET"});
+				const data = await response.json();
+				setStore({agenda: data.contacts})
+			},
 			crearAgenda: async () => {
 				try {
 					const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo", {
@@ -34,10 +36,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(response.status)
 					}
 					const data = await response.json();
-					console.log(data);
-					setStore( {agenda: data.contacts} );
+					setStore({ agenda: data.contacts });
 
-					console.log(setStore());
 				} catch (error) {
 					console.log(error);
 				}
@@ -63,21 +63,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			borrarContacto: async (idContacto) => {
-				const actions = getActions();
-				try {
-					const uri = `https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`;
-					const options = {
-						method: "DELETE",
-					};
-					const response = await fetch(uri, options);
-					if (response.status === 201) {
-						console.log("BORRADO");
-						actions.getAgenda();
-					} else {
-						console.log(response.status);
-					}
-				} catch (error) {
-					console.log(error);
+				const requestsOptions = {method: "DELETE"};
+				const response = await fetch(`https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`, requestsOptions);
+				if(response.ok){
+					const store = getStore();
+					const updateContacts = store.agenda.filter(contact => contact.id != idContacto);
+					setStore({contacts: updateContacts});
+					setStore.loadSomeData();
 				}
 			},
 			getContactById: async (idContacto) => {
