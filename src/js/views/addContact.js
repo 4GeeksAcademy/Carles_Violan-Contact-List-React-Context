@@ -1,11 +1,14 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 //NOS CAPTURE LO QUE ESTAMOS ESCRIBIENDO EN EL INPUT (CON UN ONCHANGE)
 
 //Formulario para añadir contactos
 const addContact = () => {
-    const [name, setName] = useState("");//HACER SETSTATE PARA CADA UNO DE LOS VALORES (PHONE, EMAIL,ETC)
-    console.log(name);
-    //PTE ONCLICK
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+
+    
     return (
         <>
             <div className="container">
@@ -20,10 +23,19 @@ const addContact = () => {
                         />
                     </div>
                     <div className="form-group">
+                        <label htmlFor="phone">Teléfono</label>
+                        <input
+                            type="tel"
+                            className="form-control"
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             className="form-control"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="form-group">
@@ -31,16 +43,10 @@ const addContact = () => {
                         <input
                             type="text"
                             className="form-control"
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="phone">Teléfono</label>
-                        <input
-                            type="tel"
-                            className="form-control"
-                        />
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={() => {actions.nuevoContacto(name)}}>Enviar</button>
+                    <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.nuevoContacto(name, phone, email, address) }}>Enviar</button>
                 </form>
             </div>
         </>
