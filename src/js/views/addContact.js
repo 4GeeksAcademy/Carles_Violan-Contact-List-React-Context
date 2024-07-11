@@ -20,7 +20,7 @@ const addContact = () => {
     }]
     //Formulario para añadir contactos
     return (
-            <div className="container">
+            <div className="container my-3">
                 <h2>Formulario de Contacto</h2>
                 <form>
                     <div className="form-group">
