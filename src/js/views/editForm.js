@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router";
 
 //NOS CAPTURE LO QUE ESTAMOS ESCRIBIENDO EN EL INPUT (CON UN ONCHANGE)
-const addContact = () => {
+const EditForm = () => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
@@ -56,4 +56,4 @@ const addContact = () => {
     )
 }
 
-export default addContact;
+export default EditForm;

@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				"email": "",
 				"address": ""
 			}],//Aqui guardo los datos del GET
+			contact: {}
 		},
 		actions: {
 			loadSomeData: async () => {//ACTUALIZA LOS DATOS DE LA API (NOS TRAE LOS DATOS)
@@ -42,7 +43,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			nuevoContacto: async (name, phone, address, email) => {
+			nuevoContacto: async (name, phone, address, email, navigate) => {
+				console.log(name, phone, address, email);
 				try {
 					const cuerpo = JSON.stringify({
 						"name": name,
@@ -56,14 +58,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: cuerpo,
 					}
-
 					const response = await fetch(uri, requestsOptions);
-					const data = await response.json()
-					if(response.ok){
-						const store = setStore();
-						const updateContacts = [...store.agenda, data];
-						setStore({agenda: updateContacts})
-					}
+					const data = await response.json();
+					getActions().loadSomeData();
+					navigate("/");
 				} catch (error) {
 					console.log(error)
 				}
@@ -115,6 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw error;
 				}
 			},
+			saveContact: (contact) => {setStore({contact: contact})}
 		}
 	};
 };

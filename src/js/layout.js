@@ -10,9 +10,11 @@ import { contactList } from "./views/contact";
 
 import { Agenda } from "./views/agenda";
 import AddContact from "./views/addContact"
+import EditForm from "./views/editForm";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+
 
 //create your first component
 const Layout = () => {
@@ -27,6 +29,7 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Agenda />} />
+						<Route path="/editForm" element={<EditForm />} />
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/addcontact" element={<AddContact />} />
 						<Route path="/single/:theid" element={<Single />} />
