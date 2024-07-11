@@ -10,9 +10,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			loadSomeData: async () => {//ACTUALIZA LOS DATOS DE LA API (NOS TRAE LOS DATOS)
-				const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo/contacts", {method: "GET"});
+				const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo/contacts", { method: "GET" });
 				const data = await response.json();
-				setStore({agenda: data.contacts})
+				setStore({ agenda: data.contacts })
 			},
 			crearAgenda: async () => {
 				try {
@@ -42,34 +42,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-			nuevoContacto: async (datosNuevoContacto) => {
+			nuevoContacto: async (name, phone, address, email) => {
 				try {
+					const cuerpo = JSON.stringify({
+						"name": name,
+						"phone": phone,
+						"email": email,
+						"address": address
+					});
 					const uri = "https://playground.4geeks.com/contact/agendas/AJPadillo/contacts";
-					const options = {
+					const requestsOptions = {
 						method: "POST",
-						headers: {
-							"Content-type": "application/json"
-						},
-						body: JSON.stringify(datosNuevoContacto)
+						headers: { "Content-Type": "application/json" },
+						body: cuerpo,
 					}
-					const response = await fetch(uri, options);
-					if (response.status != 201) {
-						console.log(response.status)
-					}
+
+					const response = await fetch(uri, requestsOptions);
 					const data = await response.json()
-					setStore({ contacts: data });
+					if(response.ok){
+						const store = setStore();
+						const updateContacts = [...store.agenda, data];
+						setStore({agenda: updateContacts})
+					}
 				} catch (error) {
 					console.log(error)
 				}
 			},
 			borrarContacto: async (idContacto) => {
-				const requestsOptions = {method: "DELETE"};
+				const requestsOptions = { method: "DELETE" };
 				const response = await fetch(`https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`, requestsOptions);
-				if(response.ok){
+				if (response.ok) {
 					const store = getStore();
 					const updateContacts = store.agenda.filter(contact => contact.id != idContacto);
-					setStore({contacts: updateContacts});
-					setStore.loadSomeData();
+					setStore({ contacts: updateContacts });
+					getActions().loadSomeData();
 				}
 			},
 			getContactById: async (idContacto) => {
