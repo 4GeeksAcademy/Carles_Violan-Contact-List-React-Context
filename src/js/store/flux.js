@@ -8,17 +8,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				"address": ""
 			}],//Aqui guardo los datos del GET
 			contact: {},
-			slug: "AJPadillo"
+			slug: "CarlesViolan"
 		},
 		actions: {
 			loadSomeData: async () => {//ACTUALIZA LOS DATOS DE LA API (NOS TRAE LOS DATOS)
-				const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo/contacts", { method: "GET" });
+				const response = await fetch("https://playground.4geeks.com/contact/agendas/CarlesViolan/contacts", { method: "GET" });
 				const data = await response.json();
 				setStore({ agenda: data.contacts })
 			},
 			crearAgenda: async () => {
 				try {
-					const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo", {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/CarlesViolan", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getAgenda: async () => {
 				try {
-					const response = await fetch("https://playground.4geeks.com/contact/agendas/AJPadillo")
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/CarlesViolan")
 					if (response.status != 200) {
 						console.log(response.status)
 					}
@@ -53,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"email": email,
 						"address": address
 					});
-					const uri = "https://playground.4geeks.com/contact/agendas/AJPadillo/contacts";
+					const uri = "https://playground.4geeks.com/contact/agendas/CarlesViolan/contacts";
 					const requestsOptions = {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			borrarContacto: async (idContacto) => {
 				const requestsOptions = { method: "DELETE" };
-				const response = await fetch(`https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${idContacto}`, requestsOptions);
+				const response = await fetch(`https://playground.4geeks.com/contact/agendas/CarlesViolan/contacts/${idContacto}`, requestsOptions);
 				if (response.ok) {
 					const store = getStore();
 					const updateContacts = store.agenda.filter(contact => contact.id != idContacto);
@@ -79,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			actualizarContacto: async (contact, navigate) => {
 				try {
-					const uri = `https://playground.4geeks.com/contact/agendas/AJPadillo/contacts/${contact.id}`;
+					const uri = `https://playground.4geeks.com/contact/agendas/CarlesViolan/contacts/${contact.id}`;
 					const options = {
 						method: "PUT",
 						headers: {

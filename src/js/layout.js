@@ -5,9 +5,10 @@ import ScrollToTop from "./component/scrollToTop";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 
-import { Agenda } from "./views/agenda";
+//import { Agenda } from "./views/agenda";
 import AddContact from "./views/addContact"
 import EditForm from "./views/editForm";
+import { ContactList } from "./views/contactlist";
 
 
 //create your first component
@@ -21,11 +22,11 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Routes>
-						<Route path="/" element={<Agenda />} />
+						<Route path="/" element={<ContactList />} />
 						<Route path="/editForm" element={<EditForm />} />
 						<Route path="/addContact" element={<AddContact />} />
 						<Route path="/single/:theid" element={<Single />} />
-						<Route path="*" element={<h1>Not found!</h1>} />
+						{/* <Route path="*" element={<h1>Not found!</h1>} /> */}
 					</Routes>
 				</ScrollToTop>
 			</BrowserRouter>

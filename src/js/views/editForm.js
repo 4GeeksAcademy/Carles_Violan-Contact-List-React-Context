@@ -16,11 +16,11 @@ const EditForm = () => {
 
     //Formulario para añadir contactos
     return (
-            <div className="container my-3">
-                <h2>Formulario de Contacto</h2>
+            <div className="container p-3 my-3 bg-dark text-white">
+                <h2>EditForm</h2>
                 <form>
                     <div className="form-group">
-                        <label htmlFor="name">Nombre</label>
+                        <label htmlFor="name">Name</label>
                         <input
                             type="text"
                             className="form-control"
@@ -30,7 +30,7 @@ const EditForm = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="phone">Teléfono</label>
+                        <label htmlFor="phone">Phone</label>
                         <input
                             type="tel"
                             className="form-control"
@@ -50,7 +50,7 @@ const EditForm = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="address">Dirección</label>
+                        <label htmlFor="address">Address</label>
                         <input
                             type="text"
                             className="form-control"
@@ -60,11 +60,15 @@ const EditForm = () => {
                         />
                     </div>
                     <div className="d-grid">
-                        <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.actualizarContacto(contact, navigate) }}>Enviar</button>
+                        <button type="button" className="btn btn-primary mt-4" onClick={() => { actions.actualizarContacto(contact, navigate) }}>EditContact</button>
                     </div>
                     <Link to="/">
-                        <span className="">o vuelve a los contactos</span>
-                    </Link>
+                    <div className="d-grid">
+
+                        <button type="button" className="btn btn-success mt-4">Back to ContactsList</button>
+
+                    </div>
+                </Link>
                 </form>
             </div>
     )
